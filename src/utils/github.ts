@@ -54,7 +54,7 @@ export class GithubUtil {
       return 0
     }
     input.annotations.forEach((ann: Annotations) => {{
-      console.log(`::warning file=${ann.path},line=${ann.end_line !== ann.start_line ? ann.start_line + '-' + ann.end_line : ann.start_line}::${message}`)
+      console.log(`::warning file=${ann.path},line=${ann.start_line},endLine=${ann.end_line}::${message}`)
     });
   }
 
