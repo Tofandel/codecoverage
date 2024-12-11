@@ -47,14 +47,15 @@ export async function play(): Promise<void> {
     core.info(`Workspace: ${workspacePath}`)
 
     // 1. Parse coverage file
+    let parsedCov
     if (COVERAGE_FORMAT === 'clover') {
-      var parsedCov = await parseClover(COVERAGE_FILE_PATH, workspacePath)
+      parsedCov = await parseClover(COVERAGE_FILE_PATH, workspacePath)
     } else if (COVERAGE_FORMAT === 'go') {
       // Assuming that go.mod is available in working directory
-      var parsedCov = await parseGoCoverage(COVERAGE_FILE_PATH, 'go.mod')
+      parsedCov = await parseGoCoverage(COVERAGE_FILE_PATH, 'go.mod')
     } else {
       // lcov default
-      var parsedCov = await parseLCov(COVERAGE_FILE_PATH)
+      parsedCov = await parseLCov(COVERAGE_FILE_PATH)
     }
     // Sum up lines.found for each entry in parsedCov
     const totalLines = parsedCov.reduce(

@@ -50,12 +50,9 @@ export class GithubUtil {
    * https://docs.github.com/en/rest/checks/runs?apiVersion=2022-11-28#update-a-check-run
    */
   async annotate(input: InputAnnotateParams): Promise<number> {
-    if (input.annotations.length === 0) {
-      return 0
-    }
     for (const ann of input.annotations) {
       console.log(
-        `::warning file=${ann.path},line=${ann.start_line},endLine=${ann.end_line}::${ann.message}`
+        `::${ann.annotation_level} file=${ann.path},line=${ann.start_line},endLine=${ann.end_line}::${ann.message}`
       )
     }
     return 0
